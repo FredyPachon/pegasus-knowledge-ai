@@ -1,19 +1,23 @@
 from src.core.biblioteca import BibliotecaConocimiento
-from src.buscador import BuscadorConocimiento
+from src.services.vector_service import VectorService
 
 
 class AgentePegasus:
     """
     Agente principal de Pegasus Knowledge AI.
 
-    Coordina todo el flujo del sistema.
+    Coordina el flujo entre el usuario y el motor de búsqueda
+    semántica.
     """
 
-    def __init__(self, biblioteca: BibliotecaConocimiento):
+    def __init__(
+        self,
+        biblioteca: BibliotecaConocimiento,
+        vector_service: VectorService
+    ):
 
         self.biblioteca = biblioteca
-
-        self.buscador = BuscadorConocimiento(biblioteca)
+        self.vector_service = vector_service
 
     # =======================================================
     # INICIO
@@ -27,49 +31,41 @@ class AgentePegasus:
 
         print(f"📚 Documentos : {self.biblioteca.total_documentos}")
         print(f"🧩 Fragmentos : {self.biblioteca.total_fragmentos}")
+        print(f"🧠 Vectores   : {self.vector_service.total_vectores}")
 
         print("=" * 60)
 
     # =======================================================
-    # PREGUNTAS
+    # CHAT
     # =======================================================
 
     def preguntar(self):
 
         while True:
 
-            consulta = input("\n💬 Pregunta (salir): ")
+            consulta = input("\n💬 Pregunta (salir): ").strip()
 
             if consulta.lower() == "salir":
 
-                print("\nHasta pronto Ingeniero.\n")
-
+                print("\n👋 Hasta pronto Ingeniero.\n")
                 break
 
-            resultados = self.buscador.buscar(consulta)
+            resultados = self.vector_service.buscar(consulta)
 
             print("\n")
 
             if not resultados:
 
                 print("❌ No encontré información.")
-
                 continue
 
             print("=" * 60)
-
-            print(f"Se encontraron {len(resultados)} resultados.\n")
+            print(f"📌 Se encontraron {len(resultados)} fragmentos relevantes.\n")
 
             for resultado in resultados:
 
                 print(f"📄 Documento : {resultado.documento}")
+                print(f"📄 Página    : {resultado.pagina}\n")
 
-                print(f"📄 Página    : {resultado.pagina}")
-
-                print()
-
-                print(resultado.texto[:500])
-
-                print()
-
-                print("-" * 60)
+                print(resultado.texto)
+                print("\n" + "-" * 60)

@@ -8,20 +8,19 @@ class VectorService:
     Administra la memoria vectorial de Pegasus.
 
     Responsabilidades:
-    - Generar embeddings de todos los fragmentos.
-    - Almacenar los vectores en memoria.
-    - Buscar los fragmentos más similares a una consulta.
+    - Generar embeddings.
+    - Almacenar vectores.
+    - Buscar similitud semántica.
     """
 
     def __init__(self, embedding_service: EmbeddingService):
 
         self.embedding_service = embedding_service
-
         self.vectores = []
 
-    # ======================================================
-    # CONSTRUCCIÓN DE LA MEMORIA VECTORIAL
-    # ======================================================
+    # =====================================================
+    # CONSTRUCCIÓN
+    # =====================================================
 
     def construir(self, biblioteca):
 
@@ -29,30 +28,30 @@ class VectorService:
 
         self.vectores.clear()
 
-        textos = [
-            fragmento.texto
-            for fragmento in biblioteca.fragmentos
-        ]
+        total = len(biblioteca.fragmentos)
 
-        embeddings = self.embedding_service.generar_embeddings(textos)
+        for indice, fragmento in enumerate(biblioteca.fragmentos, start=1):
 
-        for fragmento, embedding in zip(
-            biblioteca.fragmentos,
-            embeddings
-        ):
+            embedding = self.embedding_service.generar_embedding(
+                fragmento.texto
+            )
 
             self.vectores.append(
                 {
                     "embedding": embedding,
-                    "fragmento": fragmento
+                    "fragmento": fragmento,
                 }
             )
 
-        print(f"✅ Vectores creados: {len(self.vectores)}")
+            if indice % 25 == 0 or indice == total:
 
-    # ======================================================
-    # BÚSQUEDA SEMÁNTICA
-    # ======================================================
+                print(f"   {indice}/{total} embeddings creados")
+
+        print(f"\n✅ Memoria vectorial creada ({len(self.vectores)} vectores)\n")
+
+    # =====================================================
+    # BÚSQUEDA
+    # =====================================================
 
     def buscar(self, consulta: str, top_k: int = 5):
 
@@ -66,7 +65,7 @@ class VectorService:
 
             similitud = np.dot(
                 embedding_consulta,
-                item["embedding"]
+                item["embedding"],
             ) / (
                 np.linalg.norm(embedding_consulta)
                 * np.linalg.norm(item["embedding"])
@@ -75,13 +74,13 @@ class VectorService:
             resultados.append(
                 (
                     similitud,
-                    item["fragmento"]
+                    item["fragmento"],
                 )
             )
 
         resultados.sort(
             key=lambda x: x[0],
-            reverse=True
+            reverse=True,
         )
 
         return [
@@ -89,9 +88,9 @@ class VectorService:
             for _, fragmento in resultados[:top_k]
         ]
 
-    # ======================================================
+    # =====================================================
     # INFORMACIÓN
-    # ======================================================
+    # =====================================================
 
     @property
     def total_vectores(self):

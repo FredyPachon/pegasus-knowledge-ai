@@ -1,24 +1,34 @@
-import fitz
 from pathlib import Path
+
+import pdfplumber
 
 from src.models.pagina import PaginaDocumento
 
 
 def leer_pdf(ruta_pdf: Path):
+    """
+    Lee un archivo PDF y devuelve una lista de objetos
+    PaginaDocumento.
 
-    documento = fitz.open(ruta_pdf)
+    Utiliza pdfplumber como motor de extracción de texto.
+    """
 
     paginas = []
 
-    for numero_pagina, pagina in enumerate(documento, start=1):
+    with pdfplumber.open(ruta_pdf) as documento:
 
-        pagina_documento = PaginaDocumento(
-            numero=numero_pagina,
-            texto=pagina.get_text()
-        )
+        for numero_pagina, pagina in enumerate(documento.pages, start=1):
 
-        paginas.append(pagina_documento)
+            texto = pagina.extract_text()
 
-    documento.close()
+            if texto is None:
+                texto = ""
+
+            pagina_documento = PaginaDocumento(
+                numero=numero_pagina,
+                texto=texto
+            )
+
+            paginas.append(pagina_documento)
 
     return paginas

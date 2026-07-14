@@ -1,8 +1,6 @@
 from src.lector_documentos import construir_biblioteca
+from src.rag.indexer import PegasusIndexer
 from src.agente import AgentePegasus
-
-from src.services.embedding_service import EmbeddingService
-from src.services.vector_service import VectorService
 
 
 def main():
@@ -10,33 +8,24 @@ def main():
     print("\n🚀 Iniciando Pegasus...\n")
 
     # ======================================================
-    # Construcción de la biblioteca
+    # Biblioteca
     # ======================================================
 
     biblioteca = construir_biblioteca()
 
     # ======================================================
-    # Servicio de Embeddings
+    # Indexación
     # ======================================================
 
-    embedding_service = EmbeddingService()
+    indexer = PegasusIndexer()
 
-    # ======================================================
-    # Construcción de la memoria vectorial
-    # ======================================================
-
-    vector_service = VectorService(embedding_service)
-
-    vector_service.construir(biblioteca)
+    indexer.indexar(biblioteca)
 
     # ======================================================
     # Agente
     # ======================================================
 
-    agente = AgentePegasus(
-        biblioteca=biblioteca,
-        vector_service=vector_service
-    )
+    agente = AgentePegasus()
 
     agente.iniciar()
 

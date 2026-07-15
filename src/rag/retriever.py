@@ -11,13 +11,13 @@ class PegasusRetriever:
 
         self.vector_store = PegasusVectorStore()
 
-        self.retriever = self.vector_store.get_db().as_retriever(
-            search_type="similarity",
-            search_kwargs={
-                "k": TOP_K
-            }
-        )
+        self.db = self.vector_store.get_db()
 
     def buscar(self, pregunta: str):
 
-        return self.retriever.invoke(pregunta)
+        resultados = self.db.similarity_search_with_score(
+            pregunta,
+            k=TOP_K
+        )
+
+        return resultados

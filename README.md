@@ -151,10 +151,6 @@ Construir un asistente empresarial capaz de comprender documentos internos y res
 
 **Fredy Pachón**
 
-Proyecto desarrollado como parte del proceso de formación en Ingeniería de Inteligencia Artificial y construcción de agentes empresariales.
+Proyecto desarrollado como parte del proceso de formación en Ingeniería de Inteligencia Artificial y construcción de agentes empresariales. Texto de PDF colaboracion Alura-Latam Tech-Builder
 
 ---
-
-# 📜 Licencia
-
-MIT License

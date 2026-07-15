@@ -1,14 +1,23 @@
 from src.rag.retriever import PegasusRetriever
+from src.rag.reranker import PegasusReranker
+from src.rag.prompt_builder import PromptBuilder
+from src.llm.groq_provider import GroqProvider
 
 
 class AgentePegasus:
     """
-    Agente principal de Pegasus.
+    Agente principal de Pegasus Knowledge AI.
     """
 
     def __init__(self):
 
         self.retriever = PegasusRetriever()
+
+        self.reranker = PegasusReranker(top_n=3)
+
+        self.prompt_builder = PromptBuilder()
+
+        self.llm = GroqProvider()
 
     # ======================================================
     # INICIO
@@ -20,7 +29,10 @@ class AgentePegasus:
         print("🚀 PEGASUS KNOWLEDGE AI")
         print("=" * 60)
 
-        print("✅ Motor RAG Inicializado")
+        print("🧠 LLM          : Groq")
+        print("📚 Motor RAG    : LangChain + ChromaDB")
+        print("🎯 Re-Ranker    : Pegasus Ranking Engine")
+
         print("=" * 60)
 
     # ======================================================
@@ -38,23 +50,35 @@ class AgentePegasus:
                 print("\n👋 Hasta pronto Ingeniero.\n")
                 break
 
-            documentos = self.retriever.buscar(pregunta)
+            resultados = self.retriever.buscar(pregunta)
 
-            if not documentos:
+            if not resultados:
 
                 print("\n❌ No encontré información.\n")
                 continue
 
-            print("\n" + "=" * 60)
+            documentos = self.reranker.rerank(resultados)
 
-            print(f"📚 {len(documentos)} documentos recuperados.\n")
+            prompt = self.prompt_builder.construir(
+                pregunta,
+                documentos
+            )
+
+            print("\n🤖 Analizando documentación...\n")
+
+            respuesta = self.llm.generar_respuesta(prompt)
+
+            print("=" * 60)
+            print(respuesta)
+            print("=" * 60)
+
+            print("\n📚 Fuentes utilizadas:\n")
 
             for documento in documentos:
 
-                print(documento.metadata)
+                print(
+                    f"• {documento.metadata.get('documento')} "
+                    f"(Página {documento.metadata.get('pagina')})"
+                )
 
-                print()
-
-                print(documento.page_content)
-
-                print("\n" + "-" * 60)
+            print("\n" + "=" * 60)

@@ -28,7 +28,28 @@ class AgentePegasus:
         print("=" * 60)
 
     # ======================================================
-    # CHAT
+    # NUEVO MÉTODO PARA FASTAPI
+    # ======================================================
+
+    def responder(self, pregunta: str) -> str:
+
+        documentos = self.retriever.buscar(pregunta)
+
+        if not documentos:
+
+            return "No encontré información relevante."
+
+        prompt = self.prompt_builder.construir(
+            pregunta,
+            documentos
+        )
+
+        respuesta = self.llm.generar_respuesta(prompt)
+
+        return respuesta
+
+    # ======================================================
+    # CHAT EN CONSOLA
     # ======================================================
 
     def preguntar(self):
@@ -42,44 +63,10 @@ class AgentePegasus:
                 print("\n👋 Hasta pronto Ingeniero.\n")
                 break
 
-            documentos = self.retriever.buscar(pregunta)
-
-            if not documentos:
-
-                print("\n❌ No encontré información relevante.\n")
-                continue
-
-            prompt = self.prompt_builder.construir(
-                pregunta,
-                documentos
-            )
-
-            print("\n🤖 Analizando documentación...\n")
-
-            respuesta = self.llm.generar_respuesta(prompt)
+            respuesta = self.responder(pregunta)
 
             print("\n" + "=" * 60)
             print("📌 RESPUESTA")
             print("=" * 60)
             print(respuesta)
-
-            print("\n" + "=" * 60)
-            print("📚 FUENTES CONSULTADAS")
-            print("=" * 60)
-
-            fuentes = set()
-
-            for documento in documentos:
-
-                fuente = (
-                    documento.metadata.get("documento"),
-                    documento.metadata.get("pagina")
-                )
-
-                if fuente not in fuentes:
-
-                    fuentes.add(fuente)
-
-                    print(f"• {fuente[0]} (Página {fuente[1]})")
-
             print("=" * 60)

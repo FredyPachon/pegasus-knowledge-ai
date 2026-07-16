@@ -1,156 +1,146 @@
-# 🚀 Pegasus Knowledge AI
+# Pegasus Agente Empresarial
 
-> Agente Empresarial Inteligente basado en RAG, Embeddings, LLMs y Búsqueda Semántica.
+Sistema de Inteligencia Artificial basado en RAG (Retrieval-Augmented Generation) para consultar documentación empresarial mediante lenguaje natural.
 
----
-
-# 📌 Descripción
-
-Pegasus Knowledge AI es un agente inteligente diseñado para responder preguntas sobre la documentación interna de una empresa utilizando Inteligencia Artificial.
-
-El proyecto implementa una arquitectura RAG (Retrieval Augmented Generation) desarrollada completamente en Python y orientada a soluciones empresariales.
-
-Actualmente Pegasus es capaz de:
-
-- Leer documentos PDF.
-- Construir una biblioteca de conocimiento.
-- Dividir documentos en fragmentos inteligentes.
-- Generar embeddings mediante Sentence Transformers.
-- Preparar la información para búsqueda semántica.
+Pegasus permite realizar preguntas sobre documentos PDF de una organización y obtener respuestas contextualizadas utilizando búsqueda semántica y un modelo de lenguaje.
 
 ---
 
-# 🏗 Arquitectura
+# Tecnologías
+
+- Python 3.11
+- FastAPI
+- LangChain
+- ChromaDB
+- Groq API
+- HTML
+- CSS
+- JavaScript
+
+---
+
+# Arquitectura
 
 ```
 Usuario
     │
     ▼
-Pregunta
+Frontend (HTML + CSS + JavaScript)
     │
     ▼
-Embedding Service
+FastAPI
     │
     ▼
-Vector Store
+Pegasus Service
     │
     ▼
-Buscador Semántico
+Agente Pegasus
     │
     ▼
-LLM (OCI)
+Retriever
     │
     ▼
-Respuesta
+ChromaDB
+    │
+    ▼
+Groq
 ```
 
 ---
 
-# 📁 Estructura del proyecto
+# Estructura del proyecto
 
 ```
+frontend/
+│
+├── api/
+├── services/
+├── static/
+├── templates/
+└── server.py
+
 src/
 │
+├── rag/
+├── llm/
 ├── core/
 ├── models/
-├── services/
-├── rag/
-├── tests/
-│
-├── agente.py
-└── __init__.py
+└── ...
 
 documentos/
-pruebas/
+vector_db/
+
 main.py
 requirements.txt
+README.md
 ```
 
 ---
 
-# ⚙ Tecnologías
+# Instalación
 
-- Python
-- PyMuPDF
-- Sentence Transformers
-- NumPy
-- Git
-- GitHub
+```bash
+git clone https://github.com/FredyPachon/pegasus-knowledge-ai.git
 
-Próximamente:
+cd pegasus-knowledge-ai
 
-- FAISS
-- OCI Generative AI
-- WhatsApp Business API
+conda activate pegasus-v2
+
+pip install -r requirements.txt
+```
 
 ---
 
-# 🚀 Estado del proyecto
+# Ejecutar Pegasus
 
-Versión actual:
+```bash
+uvicorn frontend.server:app --reload
+```
 
-**v0.2**
+Abrir en el navegador:
 
-Estado:
-
-🟢 En desarrollo.
-
----
-
-# 🛣 Roadmap
-
-## ✅ Fase I
-
-- Arquitectura
-- Base documental
-- Git
-- GitHub
+```
+http://127.0.0.1:8000
+```
 
 ---
 
-## 🚧 Fase II
+# Características
 
-- Embeddings
-- Vector Store
-- Búsqueda Semántica
-
----
-
-## ⏳ Fase III
-
-- Integración LLM OCI
-- Pipeline RAG
-- Generación de respuestas
+- Consulta inteligente sobre documentos PDF.
+- Motor RAG con búsqueda semántica.
+- Base vectorial con ChromaDB.
+- Respuestas generadas mediante Groq.
+- Arquitectura web basada en FastAPI.
+- Interfaz desarrollada con HTML, CSS y JavaScript.
 
 ---
 
-## ⏳ Fase IV
+# Roadmap
 
-- Memoria conversacional
-- Historial
-- Contexto
+### v0.8
 
----
+- Motor RAG estable.
+- Integración con ChromaDB.
+- Integración con Groq.
+- FastAPI.
+- Interfaz Web.
+- Consulta desde navegador.
 
-## ⏳ Fase V
+### Próximas versiones
 
-- API REST
-- WhatsApp
-- Panel Web
-- Multiempresa
-
----
-
-# 🎯 Objetivo
-
-Construir un asistente empresarial capaz de comprender documentos internos y responder preguntas utilizando Inteligencia Artificial.
+- Mejoras visuales.
 
 ---
 
-# 👨‍💻 Autor
+# Licencia
 
-**Fredy Pachón**
-
-Proyecto desarrollado como parte del proceso de formación en Ingeniería de Inteligencia Artificial y construcción de agentes empresariales. Texto de PDF colaboracion Alura-Latam Tech-Builder
+MIT License.
 
 ---
+
+## Autor
+
+**Fredy Pachon**
+
+Proyecto desarrollado como parte de la creación de **Pegasus Agente Empresarial**, una plataforma de IA para consulta inteligente de documentación Corporativa suministrada  gracias el proceso  estudio de alura-Latam Tech - AI - Builder .

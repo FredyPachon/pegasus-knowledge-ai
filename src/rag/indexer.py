@@ -7,36 +7,55 @@ from src.rag.vector_store import PegasusVectorStore
 
 class PegasusIndexer:
     """
-    Construye la Base de Conocimiento Vectorial de Pegasus.
+    Constructor de la Base Vectorial de Pegasus.
+
+    Responsabilidades:
+    - Convertir fragmentos en Document.
+    - Indexarlos en ChromaDB.
+    - Evitar duplicados.
     """
 
     def __init__(self):
 
-        self.db = PegasusVectorStore().get_db()
+        self.vector_store = PegasusVectorStore()
+        self.db = self.vector_store.get_db()
 
     def indexar(self, biblioteca):
 
-        documentos = []
+        print("\n📚 Construyendo índice vectorial...")
 
+        documentos = []
         ids = []
 
         for fragmento in biblioteca.fragmentos:
 
-            documentos.append(
-                Document(
-                    page_content=fragmento.texto,
-                    metadata={
-                        "documento": fragmento.documento,
-                        "pagina": fragmento.pagina
-                    }
-                )
+            documento = Document(
+                page_content=fragmento.texto,
+                metadata={
+                    "documento": fragmento.documento,
+                    "pagina": fragmento.pagina
+                }
             )
 
-            ids.append(str(uuid4()))
+            documentos.append(documento)
 
+            # ID único por documento, página y contenido
+            ids.append(
+                f"{fragmento.documento}_{fragmento.pagina}_{hash(fragmento.texto)}"
+            )
+
+        # Elimina IDs repetidos
+        unicos = {}
+        for doc, doc_id in zip(documentos, ids):
+            unicos[doc_id] = doc
+
+        ids = list(unicos.keys())
+        documentos = list(unicos.values())
+
+        # Agrega únicamente documentos únicos
         self.db.add_documents(
             documents=documentos,
             ids=ids
         )
 
-        print(f"\n✅ {len(documentos)} fragmentos indexados en ChromaDB.")
+        print(f"\n✅ {len(documentos)} fragmentos indexados correctamente.")

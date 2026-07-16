@@ -35,6 +35,7 @@ def construir_biblioteca():
 
         fragmentos = chunker.dividir(documento)
 
+
         print("\n===== PRIMER FRAGMENTO =====")
 
         if fragmentos:

@@ -1,0 +1,170 @@
+/* =======================================================
+   PEGASUS AGENTE EMPRESARIAL
+======================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* =======================================================
+   BODY
+======================================================= */
+
+body{
+
+    background:#f5f7fa;
+
+    font-family:Arial, Helvetica, sans-serif;
+
+    color:#1f2937;
+}
+
+/* =======================================================
+   CONTENEDOR
+======================================================= */
+
+.contenedor{
+
+    max-width:900px;
+
+    margin:50px auto;
+
+    padding:20px;
+}
+
+/* =======================================================
+   LOGO
+======================================================= */
+
+.logo{
+
+    width:130px;
+
+    display:block;
+
+    margin:auto;
+}
+
+/* =======================================================
+   TITULO
+======================================================= */
+
+h1{
+
+    text-align:center;
+
+    margin-top:25px;
+
+    margin-bottom:40px;
+
+    font-size:34px;
+
+    font-weight:bold;
+}
+
+/* =======================================================
+   TARJETAS
+======================================================= */
+
+.card{
+
+    background:white;
+
+    border-radius:14px;
+
+    padding:25px;
+
+    margin-bottom:30px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+/* =======================================================
+   LABEL
+======================================================= */
+
+label{
+
+    display:block;
+
+    font-size:20px;
+
+    margin-bottom:15px;
+
+    font-weight:bold;
+}
+
+/* =======================================================
+   TEXTAREA
+======================================================= */
+
+textarea{
+
+    width:100%;
+
+    resize:none;
+
+    padding:18px;
+
+    border-radius:10px;
+
+    border:1px solid #d1d5db;
+
+    font-size:17px;
+
+    outline:none;
+}
+
+textarea:focus{
+
+    border:1px solid #2563eb;
+}
+
+/* =======================================================
+   BOTON
+======================================================= */
+
+button{
+
+    margin-top:20px;
+
+    width:100%;
+
+    padding:16px;
+
+    background:#2563eb;
+
+    color:white;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    transition:.3s;
+}
+
+button:hover{
+
+    background:#1d4ed8;
+}
+
+/* =======================================================
+   RESPUESTA
+======================================================= */
+
+#respuesta{
+
+    margin-top:20px;
+
+    line-height:1.7;
+
+    white-space:pre-wrap;
+}

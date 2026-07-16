@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Pegasus Agente Empresarial</title>
+
+    <link rel="icon"
+          href="/static/img/favicon.ico">
+
+    <link rel="stylesheet"
+          href="/static/css/style.css">
+
+</head>
+
+<body>
+
+    <main class="contenedor">
+
+        <!-- ========================= -->
+        <!-- LOGO -->
+        <!-- ========================= -->
+
+        <img
+            src="/static/img/logo.png"
+            alt="Pegasus"
+            class="logo">
+
+        <!-- ========================= -->
+        <!-- TÍTULO -->
+        <!-- ========================= -->
+
+        <h1>Pegasus Agente Empresarial</h1>
+
+        <!-- ========================= -->
+        <!-- FORMULARIO -->
+        <!-- ========================= -->
+
+        <section class="card">
+
+            <label for="pregunta">
+
+                ¿Qué información necesitas?
+
+            </label>
+
+            <textarea
+                id="pregunta"
+                rows="5"
+                placeholder="Escribe tu consulta..."></textarea>
+
+            <button id="btnConsultar">
+
+                Consultar
+
+            </button>
+
+        </section>
+
+        <!-- ========================= -->
+        <!-- RESPUESTA -->
+        <!-- ========================= -->
+
+        <section class="card">
+
+            <h2>Respuesta</h2>
+
+            <div id="respuesta">
+
+                Esperando consulta...
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="/static/js/app.js"></script>
+
+</body>
+
+</html>

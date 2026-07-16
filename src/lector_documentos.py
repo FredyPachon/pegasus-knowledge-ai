@@ -35,6 +35,13 @@ def construir_biblioteca():
 
         fragmentos = chunker.dividir(documento)
 
+        print("\n===== PRIMER FRAGMENTO =====")
+
+        if fragmentos:
+            print(fragmentos[0].texto[:500])
+
+        print("===========================\n")
+
         biblioteca.agregar_fragmentos(fragmentos)
 
         print(f"\n📄 {documento.nombre}")

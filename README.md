@@ -2,15 +2,15 @@
 
 Sistema de Inteligencia Artificial basado en **RAG (Retrieval-Augmented Generation)** para consultar documentación empresarial mediante lenguaje natural.
 
-Pegasus permite realizar preguntas sobre documentos PDF y obtener respuestas contextualizadas utilizando búsqueda semántica, ChromaDB y Groq.
+Pegasus Agente Empresarial permite realizar preguntas sobre documentos PDF y obtener respuestas contextualizadas utilizando búsqueda semántica, ChromaDB y modelos de lenguaje de última generación.
 
 ---
 
 # 🎥 Demostración
 
-Video de funcionamiento de Pegasus Agente Empresarial.
+Mira el funcionamiento de Pegasus Agente Empresarial en el siguiente video:
 
-> **Ver demostración:** [pegasus-demo.mp4](demo/pegasus-demo.mp4)
+👉 https://youtu.be/4kHYjKkqiv0
 
 ---
 
@@ -29,55 +29,65 @@ Video de funcionamiento de Pegasus Agente Empresarial.
 
 # Arquitectura
 
-```text
-Usuario
-    │
-    ▼
-Frontend (HTML + CSS + JavaScript)
-    │
-    ▼
-FastAPI
-    │
-    ▼
-Pegasus Service
-    │
-    ▼
-Agente Pegasus
-    │
-    ▼
-Retriever
-    │
-    ▼
-ChromaDB
-    │
-    ▼
-Groq
+```
+                    Pegasus Agente Empresarial
+
+               Frontend (HTML + CSS + JavaScript)
+                            │
+                            ▼
+                        FastAPI Server
+                            │
+                            ▼
+                     Pegasus Service
+                            │
+                            ▼
+                      Agente Pegasus
+                            │
+          ┌─────────────────┴─────────────────┐
+          ▼                                   ▼
+     Retriever                          Prompt Builder
+          │                                   │
+          └─────────────────┬─────────────────┘
+                            ▼
+                         ChromaDB
+                            │
+                            ▼
+                           Groq
 ```
 
 ---
 
 # Estructura del proyecto
 
-```text
+```
 frontend/
 │
 ├── api/
 ├── services/
 ├── static/
+│   ├── css/
+│   ├── img/
+│   └── js/
 ├── templates/
 └── server.py
 
 src/
 │
-├── rag/
-├── llm/
+├── chunking.py
+├── lector_documentos.py
+├── lector_pdf.py
+├── agente.py
+│
+├── config/
 ├── core/
+├── llm/
+├── memory/
 ├── models/
-└── ...
+├── rag/
+└── services/
 
 documentos/
 vector_db/
-demo/
 
 README.md
 requirements.txt
@@ -89,9 +99,9 @@ main.py
 # Instalación
 
 ```bash
-git clone https://github.com/TU-USUARIO/TU-REPOSITORIO.git
+git clone https://github.com/FredyPachon/pegasus-knowledge-ai.git
 
-cd TU-REPOSITORIO
+cd pegasus-knowledge-ai
 
 conda activate pegasus-v2
 
@@ -100,7 +110,7 @@ pip install -r requirements.txt
 
 ---
 
-# Ejecutar Pegasus
+# Ejecutar la aplicación
 
 ```bash
 uvicorn frontend.server:app --reload
@@ -108,7 +118,7 @@ uvicorn frontend.server:app --reload
 
 Abrir en el navegador:
 
-```text
+```
 http://127.0.0.1:8000
 ```
 
@@ -116,44 +126,54 @@ http://127.0.0.1:8000
 
 # Características
 
-- Consulta inteligente sobre documentos PDF.
+- Consulta inteligente sobre documentación empresarial.
 - Motor RAG con búsqueda semántica.
-- Base vectorial con ChromaDB.
-- Respuestas generadas mediante Groq.
-- Arquitectura web basada en FastAPI.
-- Interfaz desarrollada con HTML, CSS y JavaScript.
+- Base vectorial mediante ChromaDB.
+- Integración con Groq.
+- Arquitectura modular y escalable.
+- Interfaz Web desarrollada con FastAPI.
+- Separación entre Frontend, API y Motor IA.
 
 ---
 
 # Roadmap
 
-## v0.8
+## Versión 0.8
 
 - Motor RAG estable.
+- Embeddings.
 - ChromaDB.
-- Groq.
 - FastAPI.
 - Interfaz Web.
-- Consulta desde navegador.
+- Integración con Groq.
 
 ## Próximas versiones
 
 - Historial de conversaciones.
-- Gestión de documentos.
-- Reindexación desde la interfaz.
+- Gestión de documentos desde la interfaz.
+- Reindexación automática.
 - Panel administrativo.
+- Autenticación de usuarios.
 - Despliegue en producción.
 
 ---
 
 # Licencia
 
-MIT License.
+Este proyecto se distribuye bajo la licencia MIT.
 
 ---
 
-## Autor
+# Autor
 
 **Fredy Pachon**
 
-Proyecto desarrollado como base de **Pegasus Agente Empresarial**, una plataforma de Inteligencia Artificial para consulta inteligente de documentación corporativa agradecimiento por la documentacion para el proceso de formacion suministrada en el projecto TECH-IA-BUILDER ORACLE alura latam 2026.
+Proyecto desarrollado como parte de **Pegasus Agente Empresarial**, una plataforma de Inteligencia Artificial para consulta inteligente de documentación corporativa.
+
+---
+
+## Agradecimientos
+
+**Oracle - Alura - LATAM**
+
+Agradecimiento por la documentacion para el proceso de formacion suministrada en el projecto TECH-IA-BUILDER ORACLE alura latam 2026.

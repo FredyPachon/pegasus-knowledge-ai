@@ -21,11 +21,11 @@ Sistema desarrollado para responder preguntas sobre documentación empresarial u
 
 Conoce Pegasus Agente Empresarial en funcionamiento.
 
-[![Ver demostración](https://img.youtube.com/vi/4kHYjKkqiv0/hqdefault.jpg)](https://youtu.be/4kHYjKkqiv0)
+[![Ver demostración](https://img.youtube.com/vi/cnaN0yqoGPI/maxresdefault.jpg)](https://youtu.be/cnaN0yqoGPI)
 
 ▶ **Video completo**
 
-https://youtu.be/4kHYjKkqiv0
+https://youtu.be/cnaN0yqoGPI
 
 ---
 
